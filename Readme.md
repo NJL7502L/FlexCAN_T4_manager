@@ -1,20 +1,10 @@
 # FlexCAN_T4_manager Readme
-author : Shiori Tanaka \
-last update: 2020/1/11
 
 ## FlexCAN_T4_managerの概要
 Teensy4.0で行われる全てのCAN通信の送受信を管理する\
-全てのCAN通信はこのライブラリを通して行われる。\
-そのためこのライブラリはシングルトンである。
-
-
-## 現在の状況
- - 受信側の実装　（未テスト)
- - リセット処理　（未テスト)
-
-## 次にやること
- - 送信側の実装
- - 実機での検証
+全てのCAN通信はこのライブラリを通して行われる。
+<!-- そのためこのライブラリはシングルトンである。 -->
+このライブラリはシングルトンである。
 
 ## 各関数の説明(public関数のみ)
 ```c++
@@ -90,7 +80,7 @@ getAllCANData()
 ```
 使用しているCANbusのデータを全て受信する。
 ***
-
+<!--
 ```c++
 void setCAN1C610620Ampere(int cmotorid,uint16_t ampere)
 void setCAN2C610620Ampere(int cmotorid,uint16_t ampere)
@@ -305,3 +295,5 @@ canmanager->sendAllCANdata();
 - GM6020 とC610,C620のESCは同一CANbus上に混在させないようにしてください！CANIDの競合によりうまく動かない可能性が高いです。
 - 主にCAN1,CAN2はモータようCAN3をマイコンか通信に使いようにしてください。一応プログラム的にはどのcanbusでも通信はできるようになってはいます。もしCAN1,CAN2のbusが空きまくっている場合にはそちらで通信するようにしても構いません。ただしCANIDの競合には注意してください。
 -
+
+-->
