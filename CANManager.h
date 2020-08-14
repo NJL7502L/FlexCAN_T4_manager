@@ -38,9 +38,9 @@ protected:
   bool can2busisopen = false;
   bool can3busisopen = false;
   // CAN受信データ途絶時にTrue
-  bool flgNoCan1Data = false;
-  bool flgNoCan2Data = false;
-  bool flgNoCan3Data = false;
+  bool flgNoCan1Data = true;
+  bool flgNoCan2Data = true;
+  bool flgNoCan3Data = true;
   //緊急停止用フラグ
   bool flgEmergencyStop = false;
   void operator=(const FlexCAN_T4_manager &obj) {}
