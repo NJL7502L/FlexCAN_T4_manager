@@ -46,27 +46,27 @@ public:
 
   // CAN1メッセージ操作
   bool CAN1isOpen(); // canがopenしているかどうか
-  void getCAN1mes(); // canbusからデータを受け取ってhasmap上に格納する。
+  void readBus1(); // canbusからデータを受け取ってhasmap上に格納する。
   //格納されているデータ(buf)をCANIDを指定してとってくる。第２引数にはデータの送り先を指定する。
-  void getCan1Data(uint32_t canid, uint8_t data[8]);
+  void getBus1(uint32_t canid, uint8_t data[8]);
 
   // CAN2メッセージ操作
   bool CAN2isOpen();
-  void getCAN2mes();
-  void getCan2Data(uint32_t canid, uint8_t data[8]);
+  void readBus2();
+  void getBus2(uint32_t canid, uint8_t data[8]);
 
   // CAN3メッセージ操作
   bool CAN3isOpen();
-  void getCAN3mes();
-  void getCan3Data(uint32_t canid, uint8_t data[8]);
+  void readBus3();
+  void getBus3(uint32_t canid, uint8_t data[8]);
 
   //使用しているCANbusのデータを受信する関数
-  void getAllCANdata();
+  void readAll();
 
-  void setrawCAN1Message(uint32_t canid, uint8_t buf[8]);
-  void setrawCAN2Message(uint32_t canid, uint8_t buf[8]);
-  void setrawCAN3Message(uint32_t canid, uint8_t buf[8]);
+  void pushBus1(uint32_t canid, uint8_t buf[8]);
+  void pushBus2(uint32_t canid, uint8_t buf[8]);
+  void pushBus3(uint32_t canid, uint8_t buf[8]);
   // CANbusへの送信
-  void sendAllCANdata();
+  void writeAll();
 };
 #endif

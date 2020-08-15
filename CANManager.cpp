@@ -80,7 +80,7 @@ void FlexCAN_T4_manager::restartCan() {
 }
 
 // canbusからデータを受信する関数
-void FlexCAN_T4_manager::getCAN1mes() {
+void FlexCAN_T4_manager::readBus1() {
   CAN_message_t CAN1msg;
   static int can1Cnt;
   while (Can1.read(CAN1msg)) {
@@ -98,7 +98,7 @@ void FlexCAN_T4_manager::getCAN1mes() {
   }
 }
 
-void FlexCAN_T4_manager::getCAN2mes() {
+void FlexCAN_T4_manager::readBus2() {
   CAN_message_t CAN2msg;
   static int can2Cnt;
   while (Can2.read(CAN2msg)) {
@@ -116,7 +116,7 @@ void FlexCAN_T4_manager::getCAN2mes() {
   }
 }
 
-void FlexCAN_T4_manager::getCAN3mes() {
+void FlexCAN_T4_manager::readBus3() {
   CAN_message_t CAN3msg;
   static int can3Cnt;
   while (Can3.read(CAN3msg)) {
@@ -134,33 +134,33 @@ void FlexCAN_T4_manager::getCAN3mes() {
   }
 }
 // canbusからそれぞれのCAN1~3のデータを受信する
-void FlexCAN_T4_manager::getAllCANdata() {
+void FlexCAN_T4_manager::readAll() {
   if (can1busisopen) {
-    getCAN1mes();
+    readBus1();
   }
   if (can2busisopen) {
-    getCAN2mes();
+    readBus2();
   }
   if (can3busisopen) {
-    getCAN3mes();
+    readBus3();
   }
 }
 
-void FlexCAN_T4_manager::getCan1Data(uint32_t canid, uint8_t data[8]) {
+void FlexCAN_T4_manager::getBus1(uint32_t canid, uint8_t data[8]) {
   CAN_message_t msg = CAN1_mestable[canid];
   memcpy(data, msg.buf, 8);
 }
-void FlexCAN_T4_manager::getCan2Data(uint32_t canid, uint8_t data[8]) {
+void FlexCAN_T4_manager::getBus2(uint32_t canid, uint8_t data[8]) {
   CAN_message_t msg = CAN2_mestable[canid];
   memcpy(data, msg.buf, 8);
 }
-void FlexCAN_T4_manager::getCan3Data(uint32_t canid, uint8_t data[8]) {
+void FlexCAN_T4_manager::getBus3(uint32_t canid, uint8_t data[8]) {
   CAN_message_t msg = CAN3_mestable[canid];
   memcpy(data, msg.buf, 8);
 }
 
 // canmessageの生データをvectorに登録
-void FlexCAN_T4_manager::setrawCAN1Message(uint32_t canid, uint8_t buf[8]) {
+void FlexCAN_T4_manager::pushBus1(uint32_t canid, uint8_t buf[8]) {
   CAN_message_t msg;
   msg.id = canid;
   for (int i = 0; i < 8; i++) {
@@ -168,7 +168,7 @@ void FlexCAN_T4_manager::setrawCAN1Message(uint32_t canid, uint8_t buf[8]) {
   }
   CAN1_senddata.push_back(msg);
 }
-void FlexCAN_T4_manager::setrawCAN2Message(uint32_t canid, uint8_t buf[8]) {
+void FlexCAN_T4_manager::pushBus2(uint32_t canid, uint8_t buf[8]) {
   CAN_message_t msg;
   msg.id = canid;
   for (int i = 0; i < 8; i++) {
@@ -176,7 +176,7 @@ void FlexCAN_T4_manager::setrawCAN2Message(uint32_t canid, uint8_t buf[8]) {
   }
   CAN2_senddata.push_back(msg);
 }
-void FlexCAN_T4_manager::setrawCAN3Message(uint32_t canid, uint8_t buf[8]) {
+void FlexCAN_T4_manager::pushBus3(uint32_t canid, uint8_t buf[8]) {
   CAN_message_t msg;
   msg.id = canid;
   for (int i = 0; i < 8; i++) {
@@ -186,7 +186,7 @@ void FlexCAN_T4_manager::setrawCAN3Message(uint32_t canid, uint8_t buf[8]) {
 }
 
 // CANBusにデータを送信
-void FlexCAN_T4_manager::sendAllCANdata() {
+void FlexCAN_T4_manager::writeAll() {
   // BUS 1
   if (CAN1isOpen()) {
     for (CAN_message_t outmes : CAN1_senddata) {

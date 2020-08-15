@@ -49,9 +49,9 @@ bool CAN3isOpen()
 
 
 ```c++
-void getCAN1mes()
-void getCAN2mes()
-void getCAN3mes()
+void readBus1()
+void readBus2()
+void readBus3()
 ```
 それぞれのcanbusからデータを受信してCANIDをキー、CAN_message_tを値としたmapに格納する。
 
@@ -63,23 +63,23 @@ getAllCANData()
 
 
 ```c++
-void getCan1Data(uint32_t canid,uint8_t data[8])
-void getCan2Data(uint32_t canid,uint8_t data[8])
-void getCan3Data(uint32_t canid,uint8_t data[8])
+void getBus1(uint32_t canid,uint8_t data[8])
+void getBus2(uint32_t canid,uint8_t data[8])
+void getBus3(uint32_t canid,uint8_t data[8])
 ```
 格納されているデータをCANIDを指定して取得する。第２引数にデータの格納先を指定する。
 
 
 ```c++
-void setrowCAN1Message(uint32_t canid, uint8_t buf[8])
-void setrowCAN2Message(uint32_t canid, uint8_t buf[8])
-void setrowCAN3Message(uint32_t canid, uint8_t buf[8])
+void pushBus1(uint32_t canid, uint8_t buf[8])
+void pushBus2(uint32_t canid, uint8_t buf[8])
+void pushBus3(uint32_t canid, uint8_t buf[8])
 ```
 第１引数に識別子を指定し、第２引数で指定したデータをvectorに格納する。
 
 
 ```c++
-void sendAllCANdata()
+void writeAll()
 ```
 使用しているCANbusにvectorのデータを全て送信する。
 
@@ -105,16 +105,16 @@ initにtrue/falseを渡して、使用するCANbusを指定する。
 ```c++
 uint32_t canid = 0;
 uint8_t data[8] = {};
-canmanager->getAllCANdata();
-canmanager->getCan1Data(canid,data);
+canmanager->readAll();
+canmanager->getBus1(canid,data);
 ```
 
 ### データを送信したいとき
 ```c++
 uint32_t canid = 0;
 uint8_t buf[8] = {};
-canmanager->setrowCAN1Message(canid,buf);
-canmanager->sendAllCANdata();
+canmanager->pushBus1(canid,buf);
+canmanager->writeAll();
 ```
 
 ### 再始動させたいとき
