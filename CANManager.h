@@ -11,29 +11,8 @@ class FlexCAN_T4_manager {
 protected:
   FlexCAN_T4_manager();
 
-  //モーターデータをCANmesに変換するようのコンストラクタ(GM6020,C610,C620用)
-  typedef struct {
-    int16_t firstmotor;
-    int16_t secondmotor;
-    int16_t thirdmotor;
-    int16_t fourthmotor;
-    bool usethisdata;
-  } motordata;
-
-  motordata CAN1C610620data1;
-  motordata CAN2C610620data1;
-  motordata CAN3C610620data1;
-  motordata CAN1C610620data2;
-  motordata CAN2C610620data2;
-  motordata CAN3C610620data2;
-  motordata CAN1GM6020data1;
-  motordata CAN2GM6020data1;
-  motordata CAN3GM6020data1;
-  motordata CAN1GM6020data2;
-  motordata CAN2GM6020data2;
-  motordata CAN3GM6020data2;
-
   bool inited = false;
+  // CANbus init時にTrue
   bool can1busisopen = false;
   bool can2busisopen = false;
   bool can3busisopen = false;
@@ -41,8 +20,7 @@ protected:
   bool flgNoCan1Data = true;
   bool flgNoCan2Data = true;
   bool flgNoCan3Data = true;
-  //緊急停止用フラグ
-  bool flgEmergencyStop = false;
+
   void operator=(const FlexCAN_T4_manager &obj) {}
   FlexCAN_T4_manager(const FlexCAN_T4_manager &obj) {}
 
@@ -64,17 +42,13 @@ public:
   bool isNoCan2();
   bool isNoCan3();
 
-  //緊急停止、再始動用関数
-  void EmergencyStop();
   void restartCan();
 
   // CAN1メッセージ操作
   bool CAN1isOpen(); // canがopenしているかどうか
   void getCAN1mes(); // canbusからデータを受け取ってhasmap上に格納する。
-  void getCan1Data(
-      uint32_t canid,
-      uint8_t data
-          [8]); //格納されているデータ(buf)をCANIDを指定してとってくる。第２引数にはデータの送り先を指定する。
+  //格納されているデータ(buf)をCANIDを指定してとってくる。第２引数にはデータの送り先を指定する。
+  void getCan1Data(uint32_t canid, uint8_t data[8]);
 
   // CAN2メッセージ操作
   bool CAN2isOpen();
@@ -89,18 +63,9 @@ public:
   //使用しているCANbusのデータを受信する関数
   void getAllCANdata();
 
-  // CAN送信側関数
-  void setCAN1C610620Ampere(
-      int cmotorid,
-      uint16_t ampere); //(-16384 ~ 0 ~ 16384)アンペア換算で(-20A ~ 0 ~ 20A)
-  void setCAN1GM6020Voltage(int cmotorid, uint16_t voltage);
-  void setCAN2C610620Ampere(int cmotorid, uint16_t ampere);
-  void setCAN2GM6020Voltage(int cmotorid, uint16_t voltage);
-  void setCAN3C610620Ampere(int cmotorid, uint16_t ampere);
-  void setCAN3GM6020Voltage(int cmotorid, uint16_t voltage);
-  void setrowCAN1Message(uint32_t canid, uint8_t buf[8]);
-  void setrowCAN2Message(uint32_t canid, uint8_t buf[8]);
-  void setrowCAN3Message(uint32_t canid, uint8_t buf[8]);
+  void setrawCAN1Message(uint32_t canid, uint8_t buf[8]);
+  void setrawCAN2Message(uint32_t canid, uint8_t buf[8]);
+  void setrawCAN3Message(uint32_t canid, uint8_t buf[8]);
   // CANbusへの送信
   void sendAllCANdata();
 };

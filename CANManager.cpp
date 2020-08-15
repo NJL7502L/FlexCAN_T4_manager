@@ -68,11 +68,9 @@ bool FlexCAN_T4_manager::CAN3isOpen() { return can3busisopen; }
 bool FlexCAN_T4_manager::isNoCan1() { return flgNoCan1Data; }
 bool FlexCAN_T4_manager::isNoCan2() { return flgNoCan2Data; }
 bool FlexCAN_T4_manager::isNoCan3() { return flgNoCan3Data; }
-//緊急停止用関数
-void FlexCAN_T4_manager::EmergencyStop() { flgEmergencyStop = true; }
+
 //再始動関数
 void FlexCAN_T4_manager::restartCan() {
-  flgEmergencyStop = false;
   Can1.reset();
   Can2.reset();
   Can3.reset();
@@ -161,257 +159,8 @@ void FlexCAN_T4_manager::getCan3Data(uint32_t canid, uint8_t data[8]) {
   memcpy(data, msg.buf, 8);
 }
 
-// CAN送信側関数
-// CAN1用モーター出力値設定関数
-void FlexCAN_T4_manager::setCAN1C610620Ampere(int cmotorid, uint16_t ampere) {
-  switch (cmotorid) {
-  case 1:
-    CAN1C610620data1.firstmotor = ampere;
-    CAN1C610620data1.usethisdata = true;
-    break;
-
-  case 2:
-    CAN1C610620data1.secondmotor = ampere;
-    CAN1C610620data1.usethisdata = true;
-    break;
-
-  case 3:
-    CAN1C610620data1.thirdmotor = ampere;
-    CAN1C610620data1.usethisdata = true;
-    break;
-
-  case 4:
-    CAN1C610620data1.fourthmotor = ampere;
-    CAN1C610620data1.usethisdata = true;
-    break;
-
-  case 5:
-    CAN1C610620data2.firstmotor = ampere;
-    CAN1C610620data2.usethisdata = true;
-    break;
-
-  case 6:
-    CAN1C610620data2.secondmotor = ampere;
-    CAN1C610620data2.usethisdata = true;
-    break;
-
-  case 7:
-    CAN1C610620data2.thirdmotor = ampere;
-    CAN1C610620data2.usethisdata = true;
-    break;
-
-  case 8:
-    CAN1C610620data2.fourthmotor = ampere;
-    CAN1C610620data2.usethisdata = true;
-    break;
-  }
-}
-void FlexCAN_T4_manager::setCAN1GM6020Voltage(int cmotorid, uint16_t voltage) {
-  switch (cmotorid) {
-  case 1:
-    CAN1GM6020data1.firstmotor = voltage;
-    CAN1GM6020data1.usethisdata = true;
-    break;
-
-  case 2:
-    CAN1GM6020data1.secondmotor = voltage;
-    CAN1GM6020data1.usethisdata = true;
-    break;
-
-  case 3:
-    CAN1GM6020data1.thirdmotor = voltage;
-    CAN1GM6020data1.usethisdata = true;
-    break;
-
-  case 4:
-    CAN1GM6020data1.fourthmotor = voltage;
-    CAN1GM6020data1.usethisdata = true;
-    break;
-
-  case 5:
-    CAN1GM6020data2.firstmotor = voltage;
-    CAN1GM6020data2.usethisdata = true;
-    break;
-
-  case 6:
-    CAN1GM6020data2.secondmotor = voltage;
-    CAN1GM6020data2.usethisdata = true;
-    break;
-
-  case 7:
-    CAN1GM6020data2.thirdmotor = voltage;
-    CAN1GM6020data2.usethisdata = true;
-    break;
-  }
-}
-
-// CAN2用モーター出力値設定関数
-void FlexCAN_T4_manager::setCAN2C610620Ampere(int cmotorid, uint16_t ampere) {
-  switch (cmotorid) {
-  case 1:
-    CAN2C610620data1.firstmotor = ampere;
-    CAN2C610620data1.usethisdata = true;
-    break;
-
-  case 2:
-    CAN2C610620data1.secondmotor = ampere;
-    CAN2C610620data1.usethisdata = true;
-    break;
-
-  case 3:
-    CAN2C610620data1.thirdmotor = ampere;
-    CAN2C610620data1.usethisdata = true;
-    break;
-
-  case 4:
-    CAN2C610620data1.fourthmotor = ampere;
-    CAN2C610620data1.usethisdata = true;
-    break;
-
-  case 5:
-    CAN2C610620data2.firstmotor = ampere;
-    CAN2C610620data2.usethisdata = true;
-    break;
-
-  case 6:
-    CAN2C610620data2.secondmotor = ampere;
-    CAN2C610620data2.usethisdata = true;
-    break;
-
-  case 7:
-    CAN2C610620data2.thirdmotor = ampere;
-    CAN2C610620data2.usethisdata = true;
-    break;
-
-  case 8:
-    CAN2C610620data2.fourthmotor = ampere;
-    CAN2C610620data2.usethisdata = true;
-    break;
-  }
-}
-void FlexCAN_T4_manager::setCAN2GM6020Voltage(int cmotorid, uint16_t voltage) {
-  switch (cmotorid) {
-  case 1:
-    CAN2GM6020data1.firstmotor = voltage;
-    CAN2GM6020data1.usethisdata = true;
-    break;
-
-  case 2:
-    CAN2GM6020data1.secondmotor = voltage;
-    CAN2GM6020data1.usethisdata = true;
-    break;
-
-  case 3:
-    CAN2GM6020data1.thirdmotor = voltage;
-    CAN2GM6020data1.usethisdata = true;
-    break;
-
-  case 4:
-    CAN2GM6020data1.fourthmotor = voltage;
-    CAN2GM6020data1.usethisdata = true;
-    break;
-
-  case 5:
-    CAN2GM6020data2.firstmotor = voltage;
-    CAN2GM6020data2.usethisdata = true;
-    break;
-
-  case 6:
-    CAN2GM6020data2.secondmotor = voltage;
-    CAN2GM6020data2.usethisdata = true;
-    break;
-
-  case 7:
-    CAN2GM6020data2.thirdmotor = voltage;
-    CAN2GM6020data2.usethisdata = true;
-    break;
-  }
-}
-
-// CAN3用モーター出力値設定関数
-void FlexCAN_T4_manager::setCAN3C610620Ampere(int cmotorid, uint16_t ampere) {
-  switch (cmotorid) {
-  case 1:
-    CAN3C610620data1.firstmotor = ampere;
-    CAN3C610620data1.usethisdata = true;
-    break;
-
-  case 2:
-    CAN3C610620data1.secondmotor = ampere;
-    CAN3C610620data1.usethisdata = true;
-    break;
-
-  case 3:
-    CAN3C610620data1.thirdmotor = ampere;
-    CAN3C610620data1.usethisdata = true;
-    break;
-
-  case 4:
-    CAN3C610620data1.fourthmotor = ampere;
-    CAN3C610620data1.usethisdata = true;
-    break;
-
-  case 5:
-    CAN3C610620data2.firstmotor = ampere;
-    CAN3C610620data2.usethisdata = true;
-    break;
-
-  case 6:
-    CAN3C610620data2.secondmotor = ampere;
-    CAN3C610620data2.usethisdata = true;
-    break;
-
-  case 7:
-    CAN3C610620data2.thirdmotor = ampere;
-    CAN3C610620data2.usethisdata = true;
-    break;
-
-  case 8:
-    CAN3C610620data2.fourthmotor = ampere;
-    CAN3C610620data2.usethisdata = true;
-    break;
-  }
-}
-void FlexCAN_T4_manager::setCAN3GM6020Voltage(int cmotorid, uint16_t voltage) {
-  switch (cmotorid) {
-  case 1:
-    CAN3GM6020data1.firstmotor = voltage;
-    CAN3GM6020data1.usethisdata = true;
-    break;
-
-  case 2:
-    CAN3GM6020data1.secondmotor = voltage;
-    CAN3GM6020data1.usethisdata = true;
-    break;
-
-  case 3:
-    CAN3GM6020data1.thirdmotor = voltage;
-    CAN3GM6020data1.usethisdata = true;
-    break;
-
-  case 4:
-    CAN3GM6020data1.fourthmotor = voltage;
-    CAN3GM6020data1.usethisdata = true;
-    break;
-
-  case 5:
-    CAN3GM6020data2.firstmotor = voltage;
-    CAN3GM6020data2.usethisdata = true;
-    break;
-
-  case 6:
-    CAN3GM6020data2.secondmotor = voltage;
-    CAN3GM6020data2.usethisdata = true;
-    break;
-
-  case 7:
-    CAN3GM6020data2.thirdmotor = voltage;
-    CAN3GM6020data2.usethisdata = true;
-    break;
-  }
-}
 // canmessageの生データをvectorに登録
-void FlexCAN_T4_manager::setrowCAN1Message(uint32_t canid, uint8_t buf[8]) {
+void FlexCAN_T4_manager::setrawCAN1Message(uint32_t canid, uint8_t buf[8]) {
   CAN_message_t msg;
   msg.id = canid;
   for (int i = 0; i < 8; i++) {
@@ -419,7 +168,7 @@ void FlexCAN_T4_manager::setrowCAN1Message(uint32_t canid, uint8_t buf[8]) {
   }
   CAN1_senddata.push_back(msg);
 }
-void FlexCAN_T4_manager::setrowCAN2Message(uint32_t canid, uint8_t buf[8]) {
+void FlexCAN_T4_manager::setrawCAN2Message(uint32_t canid, uint8_t buf[8]) {
   CAN_message_t msg;
   msg.id = canid;
   for (int i = 0; i < 8; i++) {
@@ -427,7 +176,7 @@ void FlexCAN_T4_manager::setrowCAN2Message(uint32_t canid, uint8_t buf[8]) {
   }
   CAN2_senddata.push_back(msg);
 }
-void FlexCAN_T4_manager::setrowCAN3Message(uint32_t canid, uint8_t buf[8]) {
+void FlexCAN_T4_manager::setrawCAN3Message(uint32_t canid, uint8_t buf[8]) {
   CAN_message_t msg;
   msg.id = canid;
   for (int i = 0; i < 8; i++) {
@@ -437,245 +186,22 @@ void FlexCAN_T4_manager::setrowCAN3Message(uint32_t canid, uint8_t buf[8]) {
 }
 
 // CANBusにデータを送信
-
 void FlexCAN_T4_manager::sendAllCANdata() {
-  CAN_message_t msg;
-  ///////////////////////////////////////////////////////////////////
-  // CAN1
-  ///////////////////////////////////////////////////////////////////
-  //モーター駆動系のCANPacket作成
-  if (CAN1C610620data1.usethisdata && CAN1isOpen()) {
-    msg.id = 0x200;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan1Data) {
-      msg.buf[0] = CAN1C610620data1.firstmotor >> 8;
-      msg.buf[1] = CAN1C610620data1.firstmotor & 0x00ff;
-      msg.buf[2] = CAN1C610620data1.secondmotor >> 8;
-      msg.buf[3] = CAN1C610620data1.secondmotor & 0x00ff;
-      msg.buf[4] = CAN1C610620data1.thirdmotor >> 8;
-      msg.buf[5] = CAN1C610620data1.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN1C610620data1.fourthmotor >> 8;
-      msg.buf[7] = CAN1C610620data1.fourthmotor & 0x00ff;
-    }
-    CAN1_senddata.push_back(msg);
-  }
-
-  if (CAN1C610620data2.usethisdata && CAN1isOpen()) {
-    msg.id = 0x1FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan1Data) {
-      msg.buf[0] = CAN1C610620data2.firstmotor >> 8;
-      msg.buf[1] = CAN1C610620data2.firstmotor & 0x00ff;
-      msg.buf[2] = CAN1C610620data2.secondmotor >> 8;
-      msg.buf[3] = CAN1C610620data2.secondmotor & 0x00ff;
-      msg.buf[4] = CAN1C610620data2.thirdmotor >> 8;
-      msg.buf[5] = CAN1C610620data2.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN1C610620data2.fourthmotor >> 8;
-      msg.buf[7] = CAN1C610620data2.fourthmotor & 0x00ff;
-    }
-    CAN1_senddata.push_back(msg);
-  }
-  if (CAN1GM6020data1.usethisdata && CAN1isOpen()) {
-    msg.id = 0x1FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan1Data) {
-      msg.buf[0] = CAN1GM6020data1.firstmotor >> 8;
-      msg.buf[1] = CAN1GM6020data1.firstmotor & 0x00ff;
-      msg.buf[2] = CAN1GM6020data1.secondmotor >> 8;
-      msg.buf[3] = CAN1GM6020data1.secondmotor & 0x00ff;
-      msg.buf[4] = CAN1GM6020data1.thirdmotor >> 8;
-      msg.buf[5] = CAN1GM6020data1.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN1GM6020data1.fourthmotor >> 8;
-      msg.buf[7] = CAN1GM6020data1.fourthmotor & 0x00ff;
-    }
-    CAN1_senddata.push_back(msg);
-  }
-  if (CAN1GM6020data2.usethisdata && CAN1isOpen()) {
-    msg.id = 0x2FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan1Data) {
-      msg.buf[0] = CAN1GM6020data2.firstmotor >> 8;
-      msg.buf[1] = CAN1GM6020data2.firstmotor & 0x00ff;
-      msg.buf[2] = CAN1GM6020data2.secondmotor >> 8;
-      msg.buf[3] = CAN1GM6020data2.secondmotor & 0x00ff;
-      msg.buf[4] = CAN1GM6020data2.thirdmotor >> 8;
-      msg.buf[5] = CAN1GM6020data2.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN1GM6020data2.fourthmotor >> 8;
-      msg.buf[7] = CAN1GM6020data2.fourthmotor & 0x00ff;
-    }
-    CAN1_senddata.push_back(msg);
-  }
-  // CANbusに送信
+  // BUS 1
   if (CAN1isOpen()) {
     for (CAN_message_t outmes : CAN1_senddata) {
       Can1.write(outmes);
     }
   }
   CAN1_senddata.clear();
-
-  ///////////////////////////////////////////////////////////////////
-  // CAN2
-  ///////////////////////////////////////////////////////////////////
-  //モーター駆動系のCANPacket作成
-  if (CAN2C610620data1.usethisdata && CAN2isOpen()) {
-    msg.id = 0x200;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan2Data) {
-      msg.buf[0] = CAN2C610620data1.firstmotor >> 8;
-      msg.buf[1] = CAN2C610620data1.firstmotor & 0x00ff;
-      msg.buf[2] = CAN2C610620data1.secondmotor >> 8;
-      msg.buf[3] = CAN2C610620data1.secondmotor & 0x00ff;
-      msg.buf[4] = CAN2C610620data1.thirdmotor >> 8;
-      msg.buf[5] = CAN2C610620data1.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN2C610620data1.fourthmotor >> 8;
-      msg.buf[7] = CAN2C610620data1.fourthmotor & 0x00ff;
-    }
-    CAN2_senddata.push_back(msg);
-  }
-
-  if (CAN2C610620data2.usethisdata && CAN2isOpen()) {
-    msg.id = 0x1FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan2Data) {
-      msg.buf[0] = CAN2C610620data2.firstmotor >> 8;
-      msg.buf[1] = CAN2C610620data2.firstmotor & 0x00ff;
-      msg.buf[2] = CAN2C610620data2.secondmotor >> 8;
-      msg.buf[3] = CAN2C610620data2.secondmotor & 0x00ff;
-      msg.buf[4] = CAN2C610620data2.thirdmotor >> 8;
-      msg.buf[5] = CAN2C610620data2.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN2C610620data2.fourthmotor >> 8;
-      msg.buf[7] = CAN2C610620data2.fourthmotor & 0x00ff;
-    }
-    CAN2_senddata.push_back(msg);
-  }
-  if (CAN2GM6020data1.usethisdata && CAN2isOpen()) {
-    msg.id = 0x1FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan2Data) {
-      msg.buf[0] = CAN2GM6020data1.firstmotor >> 8;
-      msg.buf[1] = CAN2GM6020data1.firstmotor & 0x00ff;
-      msg.buf[2] = CAN2GM6020data1.secondmotor >> 8;
-      msg.buf[3] = CAN2GM6020data1.secondmotor & 0x00ff;
-      msg.buf[4] = CAN2GM6020data1.thirdmotor >> 8;
-      msg.buf[5] = CAN2GM6020data1.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN2GM6020data1.fourthmotor >> 8;
-      msg.buf[7] = CAN2GM6020data1.fourthmotor & 0x00ff;
-    }
-    CAN2_senddata.push_back(msg);
-  }
-  if (CAN2GM6020data2.usethisdata && CAN2isOpen()) {
-    msg.id = 0x2FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan2Data) {
-      msg.buf[0] = CAN2GM6020data2.firstmotor >> 8;
-      msg.buf[1] = CAN2GM6020data2.firstmotor & 0x00ff;
-      msg.buf[2] = CAN2GM6020data2.secondmotor >> 8;
-      msg.buf[3] = CAN2GM6020data2.secondmotor & 0x00ff;
-      msg.buf[4] = CAN2GM6020data2.thirdmotor >> 8;
-      msg.buf[5] = CAN2GM6020data2.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN2GM6020data2.fourthmotor >> 8;
-      msg.buf[7] = CAN2GM6020data2.fourthmotor & 0x00ff;
-    }
-    CAN2_senddata.push_back(msg);
-  }
-  // CANbusに送信
+  // BUS 2
   if (CAN2isOpen()) {
     for (CAN_message_t outmes : CAN2_senddata) {
       Can2.write(outmes);
     }
   }
   CAN2_senddata.clear();
-
-  ///////////////////////////////////////////////////////////////////
-  // CAN3
-  ///////////////////////////////////////////////////////////////////
-  //モーター駆動系のCANPacket作成
-  if (CAN3C610620data1.usethisdata && CAN3isOpen()) {
-    msg.id = 0x200;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan3Data) {
-      msg.buf[0] = CAN3C610620data1.firstmotor >> 8;
-      msg.buf[1] = CAN3C610620data1.firstmotor & 0x00ff;
-      msg.buf[2] = CAN3C610620data1.secondmotor >> 8;
-      msg.buf[3] = CAN3C610620data1.secondmotor & 0x00ff;
-      msg.buf[4] = CAN3C610620data1.thirdmotor >> 8;
-      msg.buf[5] = CAN3C610620data1.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN3C610620data1.fourthmotor >> 8;
-      msg.buf[7] = CAN3C610620data1.fourthmotor & 0x00ff;
-    }
-    CAN3_senddata.push_back(msg);
-  }
-
-  if (CAN3C610620data2.usethisdata && CAN3isOpen()) {
-    msg.id = 0x1FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan3Data) {
-      msg.buf[0] = CAN3C610620data2.firstmotor >> 8;
-      msg.buf[1] = CAN3C610620data2.firstmotor & 0x00ff;
-      msg.buf[2] = CAN3C610620data2.secondmotor >> 8;
-      msg.buf[3] = CAN3C610620data2.secondmotor & 0x00ff;
-      msg.buf[4] = CAN3C610620data2.thirdmotor >> 8;
-      msg.buf[5] = CAN3C610620data2.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN3C610620data2.fourthmotor >> 8;
-      msg.buf[7] = CAN3C610620data2.fourthmotor & 0x00ff;
-    }
-    CAN3_senddata.push_back(msg);
-  }
-  if (CAN3GM6020data1.usethisdata && CAN3isOpen()) {
-    msg.id = 0x1FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan3Data) {
-      msg.buf[0] = CAN3GM6020data1.firstmotor >> 8;
-      msg.buf[1] = CAN3GM6020data1.firstmotor & 0x00ff;
-      msg.buf[2] = CAN3GM6020data1.secondmotor >> 8;
-      msg.buf[3] = CAN3GM6020data1.secondmotor & 0x00ff;
-      msg.buf[4] = CAN3GM6020data1.thirdmotor >> 8;
-      msg.buf[5] = CAN3GM6020data1.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN3GM6020data1.fourthmotor >> 8;
-      msg.buf[7] = CAN3GM6020data1.fourthmotor & 0x00ff;
-    }
-    CAN3_senddata.push_back(msg);
-  }
-  if (CAN3GM6020data2.usethisdata && CAN3isOpen()) {
-    msg.id = 0x2FF;
-    for (int i = 0; i < 8; i++) {
-      msg.buf[i] = 0;
-    }
-    if (!flgEmergencyStop && !flgNoCan3Data) {
-      msg.buf[0] = CAN3GM6020data2.firstmotor >> 8;
-      msg.buf[1] = CAN3GM6020data2.firstmotor & 0x00ff;
-      msg.buf[2] = CAN3GM6020data2.secondmotor >> 8;
-      msg.buf[3] = CAN3GM6020data2.secondmotor & 0x00ff;
-      msg.buf[4] = CAN3GM6020data2.thirdmotor >> 8;
-      msg.buf[5] = CAN3GM6020data2.thirdmotor & 0x00ff;
-      msg.buf[6] = CAN3GM6020data2.fourthmotor >> 8;
-      msg.buf[7] = CAN3GM6020data2.fourthmotor & 0x00ff;
-    }
-    CAN3_senddata.push_back(msg);
-  }
-  // CANbusに送信
+  // BUS 3
   if (CAN3isOpen()) {
     for (CAN_message_t outmes : CAN3_senddata) {
       Can3.write(outmes);
